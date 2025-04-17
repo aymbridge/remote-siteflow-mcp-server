@@ -1,0 +1,35 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "remote-siteflow-mcp-server",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-03-10",
+	"compatibility_flags": ["nodejs_compat"],
+	"migrations": [
+		{
+			"new_sqlite_classes": ["MyMCP"],
+			"tag": "v1"
+		}
+	],
+	"durable_objects": {
+		"bindings": [
+			{
+				"class_name": "MyMCP",
+				"name": "MCP_OBJECT"
+			}
+		]
+	},
+	"kv_namespaces": [
+		{
+			"binding": "OAUTH_KV",
+			"id": "ccd0cfe91e624976922cbec49e0e8a19"
+		}
+	],
+	"observability": {
+		"enabled": true
+	},
+	"assets": { "directory": "./static/", "binding": "ASSETS" }
+}
